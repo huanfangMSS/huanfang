@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>幻方游戏工作室 - 皮肤定制定价一览</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background: #0c0e14;
+            color: #e6e8ef;
+            min-height: 100vh;
+            padding: 40px 20px;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* 粒子画布层级 */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none; /* 穿透画布，不遮挡页面点击、滑动、文字 */
+            z-index: 9999;
+            background: transparent; /* 画布底层强制透明 */
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* 头部标题区 */
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 1px solid #252a35;
+            padding-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            color: #7c5cff;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            color: #8a91a0;
+            font-size: 16px;
+        }
+
+        /* 预留扩展文案模块 后期新增文字专用 */
+        .text-expand-block {
+            background: #141821;
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 40px;
+            border-left: 4px solid #7c5cff;
+        }
+        .text-expand-block h3 {
+            color: #b3a0ff;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        .expand-text-area {
+            color: #c5cbe0;
+        }
+
+        /* 定价卡片通用样式 */
+        .price-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            margin-bottom: 50px;
+        }
+        .skin-card {
+            background: linear-gradient(145deg, #161b26, #0f131a);
+            border: 1px solid #2a303f;
+            border-radius: 12px;
+            padding: 28px;
+            transition: 0.3s ease;
+        }
+        .skin-card:hover {
+            border-color: #7c5cff66;
+            transform: translateY(-4px);
+        }
+        .skin-card h2 {
+            color: #fff;
+            font-size: 22px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #272d3b;
+            padding-bottom: 10px;
+        }
+        .price-num {
+            font-size: 30px;
+            color: #7c5cff;
+            font-weight: bold;
+            margin: 14px 0;
+        }
+        .desc-item {
+            display: flex;
+            margin: 8px 0;
+            color: #a2a9bb;
+        }
+        .desc-item::before {
+            content: "•";
+            color: #7c5cff;
+            margin-right: 10px;
+        }
+
+        /* 底部备注预留区域 */
+        .note-area {
+            margin-top: 70px;
+            padding: 20px;
+            background: #12151c;
+            border-radius: 8px;
+            color: #949cb0;
+        }
+        .note-area h4 {
+            color: #b3a0ff;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        /* 响应式适配手机 */
+        @media (max-width: 600px) {
+            .page-header h1 {
+                font-size: 28px;
+            }
+            .price-wrap {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 粒子特效画布 -->
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="container">
+        <!-- 页面头部 -->
+        <header class="page-header">
+            <h1>幻方游戏工作室</h1>
+            <p>Skin Customize Price List | 皮肤定制价格总览</p>
+        </header>
+
+        <!-- ====================== 预留文字扩展区1（后期可新增文案、公告、说明） ====================== -->
+        <div class="text-expand-block">
+            <h3>工作室服务说明</h3>
+            <div class="expand-text-area">
+                幻方工作室为各位玩家提供64像素、128像素我的世界皮肤定制项目<br>
+           欢迎你下单！本页面为静态页面。仅供价格查询，如需定制请返回QQ或微信联系我们的客服。 </div>
+        </div>
+
+        <!-- 皮肤定价卡片区域 -->
+        <section class="price-wrap">
+            <!-- 基础简约皮肤 -->
+            <div class="skin-card">
+                <h2>64像素皮肤定制</h2>
+                <div class="price-num">¥45</div>
+                <div class="desc-item">单件64像素皮肤定制</div>
+                <div class="desc-item">二对一定制服务</div>
+                <div class="desc-item">最快3个工作日交付</div>
+                <div class="desc-item">可赠送基础渲染图</div>
+                <div class="desc-item">免费上传网易</div>
+            </div>
+
+            <!-- 进阶动态皮肤 -->
+            <div class="skin-card">
+                <h2>128像素皮肤定制</h2>
+                <div class="price-num">¥65</div>
+                <div class="desc-item">单件128像素皮肤定制</div>
+                <div class="desc-item">二对一定制服务</div>
+                <div class="desc-item">最快3个工作日交付</div>
+                <div class="desc-item">可赠送基础渲染图</div>
+                <div class="desc-item">免费上传网易</div>
+            </div>
+
+            <!-- 限定典藏皮肤 -->
+            <div class="skin-card">
+                <h2>64像素+128像素皮肤定制</h2>
+                <div class="price-num">¥90</div>
+                <div class="desc-item">优惠方案，比单选便宜20！</div>
+                 <div class="desc-item">二对一定制服务</div>
+                <div class="desc-item">最快3个工作日交付</div>
+                <div class="desc-item">可赠送基础渲染图</div>
+                <div class="desc-item">免费上传网易</div>
+            </div>
+        </section>
+
+        <!-- ====================== 预留文字扩展区2（后期可加增值服务、附加收费项） ====================== -->
+        <div class="text-expand-block">
+            <h3>联系方式</h3>
+            <div class="expand-text-area">
+                QQ：2928901280
+                QQ：3661330376
+                QQ：781907772
+                微信：A3661330376<br>
+                快来进店咨询吧！
+            </div>
+        </div>
+
+        <!-- ====================== 预留文字扩展区3（后期可加活动、优惠公告） ====================== -->
+        <div class="text-expand-block">
+            <h3>活动优惠专区</h3>
+            <div class="expand-text-area">
+                暂无优惠活动，请等待更新。
+            </div>
+        </div>
+
+        <!-- 底部备注说明预留区 -->
+        <div class="note-area">
+            <h4>定制须知备注</h4>
+            <p>1. 所有价格明码标价无隐藏消费；</p>
+            <p>2. 初稿提供免费修改，过多修改的收取少量修改费；</p>
+            <p>3. 仅免费上传至网易版我的世界；</p>
+            <!-- 下方可继续新增备注文本 -->
+        </div>
+    </div>
+
+    <script>
+        // 粒子画布初始化
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        // 窗口尺寸适配
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas, { passive: true });
+
+        // 粒子类
+        class Particle {
+            constructor(x, y, type = "click") {
+                this.x = x;
+                this.y = y;
+                this.type = type;
+
+                if (type === "slide") {
+                    // 滑动粒子：大小层次更丰富
+                    this.size = Math.random() * 2.8 + 0.3;
+                    // 滑动粒子速度更轻柔
+                    this.speedX = Math.random() * 2.2 - 1.1;
+                    this.speedY = Math.random() * 2.2 - 1.1;
+                    // 浅亮紫色
+                    this.color = `hsl(${275 + Math.random() * 25}, 90%, 78%)`;
+                    this.decay = 0.018;
+                } else {
+                    // 点击爆发粒子
+                    this.size = Math.random() * 4.5 + 1;
+                    this.speedX = Math.random() * 6 - 3;
+                    this.speedY = Math.random() * 6 - 3;
+                    this.color = `hsl(${250 + Math.random() * 40}, 85%, 68%)`;
+                    this.decay = 0.015;
+                }
+                this.life = 1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life -= this.decay;
+                this.size *= 0.975;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.life;
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        // 批量生成滑动粒子（增强核心，一次5颗带偏移，轨迹浓密）
+        function createSlideParticles(x, y) {
+            for (let i = 0; i < 5; i++) {
+                const offsetX = (Math.random() - 0.5) * 12;
+                const offsetY = (Math.random() - 0.5) * 12;
+                particles.push(new Particle(x + offsetX, y + offsetY, "slide"));
+            }
+        }
+
+        // 点击爆发粒子
+        window.addEventListener('click', (e) => {
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle(e.clientX, e.clientY, "click"));
+            }
+        });
+
+        // 电脑端按住鼠标拖动生成滑动粒子
+        window.addEventListener('mousemove', (e) => {
+            if (e.buttons === 1) {
+                createSlideParticles(e.clientX, e.clientY);
+            }
+        });
+
+        // 移动端触屏滑动（passive:true不阻断滚动）
+        let touchCache = {};
+        window.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            touchCache.x = touch.clientX;
+            touchCache.y = touch.clientY;
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+            const touch = e.touches[0];
+            createSlideParticles(touch.clientX, touch.clientY);
+        }, { passive: true });
+
+        // 动画循环
+        function animate() {
+            // 关键修复：清空画布为完全透明，不会遮挡文字
+            ctx.clearRect(0, 0, width, height);
+            // 叠加发光模式，实现柔和拖影，不产生深色遮罩
+            ctx.globalCompositeOperation = "lighter";
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].life <= 0) particles.splice(i, 1);
+            }
+            // 恢复默认混合模式
+            ctx.globalCompositeOperation = "source-over";
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
