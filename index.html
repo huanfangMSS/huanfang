@@ -28,9 +28,9 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            pointer-events: none; /* 穿透画布，不遮挡页面点击、滑动、文字 */
+            pointer-events: none;
             z-index: 9999;
-            background: transparent; /* 画布底层强制透明 */
+            background: transparent;
         }
 
         .container {
@@ -58,7 +58,7 @@
             font-size: 16px;
         }
 
-        /* 预留扩展文案模块 后期新增文字专用 */
+        /* 预留扩展文案模块 */
         .text-expand-block {
             background: #141821;
             border-radius: 10px;
@@ -75,7 +75,7 @@
             color: #c5cbe0;
         }
 
-        /* 定价卡片通用样式 */
+        /* 定价卡片 */
         .price-wrap {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -117,7 +117,7 @@
             margin-right: 10px;
         }
 
-        /* 底部备注预留区域 */
+        /* 底部备注 */
         .note-area {
             margin-top: 70px;
             padding: 20px;
@@ -131,7 +131,108 @@
             font-size: 18px;
         }
 
-        /* 响应式适配手机 */
+        /* ===================== 悬浮联系浮球样式 ===================== */
+        .float-contact-btn {
+            position: fixed;
+            right: 24px;
+            bottom: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7c5cff, #9b7fff);
+            box-shadow: 0 4px 20px #7c5cff60;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 26px;
+            cursor: pointer;
+            z-index: 10000;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+        .float-contact-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* 遮罩层 */
+        .contact-mask {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .contact-mask.show {
+            display: flex;
+        }
+
+        /* 联系弹窗 */
+        .contact-popup {
+            width: 100%;
+            max-width: 360px;
+            background: #141821;
+            border: 1px solid #7c5cff40;
+            border-radius: 14px;
+            padding: 30px;
+            position: relative;
+        }
+        .contact-popup h3 {
+            color: #b3a0ff;
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 22px;
+        }
+        /* 关闭按钮 */
+        .popup-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            color: #8a91a0;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .popup-close:hover {
+            color: #fff;
+        }
+        /* 联系方式选项 */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            border-radius: 10px;
+            background: #0f131a;
+            margin-bottom: 14px;
+            text-decoration: none;
+            color: #e6e8ef;
+            transition: 0.2s;
+        }
+        .contact-item:hover {
+            background: #1c222f;
+            border-left: 4px solid #7c5cff;
+        }
+        .contact-item .icon {
+            font-size: 24px;
+            margin-right: 14px;
+            width: 30px;
+            text-align: center;
+        }
+        .qq-icon {
+            color: #50a8ff;
+        }
+        .wx-icon {
+            color: #39c5bb;
+        }
+        .contact-tip {
+            font-size: 13px;
+            color: #8a91a0;
+            margin-top: 6px;
+        }
+
+        /* 移动端适配 */
         @media (max-width: 600px) {
             .page-header h1 {
                 font-size: 28px;
@@ -139,12 +240,48 @@
             .price-wrap {
                 grid-template-columns: 1fr;
             }
+            .float-contact-btn {
+                width: 52px;
+                height: 52px;
+                font-size: 22px;
+                right: 16px;
+                bottom: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 粒子特效画布 -->
+    <!-- 粒子画布 -->
     <canvas id="particleCanvas"></canvas>
+
+    <!-- 悬浮联系按钮 -->
+    <div class="float-contact-btn" id="openContact">
+        咨询
+    </div>
+
+    <!-- 联系弹窗遮罩 -->
+    <div class="contact-mask" id="contactMask">
+        <div class="contact-popup">
+            <span class="popup-close" id="closeContact">×</span>
+            <h3>联系幻方工作室</h3>
+            <!-- QQ链接：把QQ号替换成你的 -->
+            <a href="tencent://message/?uin=3661330376&Site=&Menu=yes" class="contact-item">
+                <span class="icon qq-icon">Q</span>
+                <div>
+                    <div>QQ咨询</div>
+                    <div class="contact-tip">点击自动唤起QQ聊天窗口，无法唤起时手动搜索3661330376</div>
+                </div>
+            </a>
+            <!-- 微信 -->
+            <div class="contact-item">
+                <span class="icon wx-icon">W</span>
+                <div>
+                    <div>微信联系</div>
+                    <div class="contact-tip">微信号：A3661330376</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <!-- 页面头部 -->
@@ -153,19 +290,19 @@
             <p>Skin Customize Price List | 皮肤定制价格总览</p>
         </header>
 
-        <!-- ====================== 预留文字扩展区1（后期可新增文案、公告、说明） ====================== -->
+        <!-- 预留文字扩展区1 -->
         <div class="text-expand-block">
             <h3>工作室服务说明</h3>
             <div class="expand-text-area">
-                幻方工作室为各位玩家提供64像素、128像素我的世界皮肤定制项目<br>
-           欢迎你下单！本页面为静态页面。仅供价格查询，如需定制请返回QQ或微信联系我们的客服。 </div>
+                  幻方工作室为各位玩家提供64像素、128像素我的世界皮肤定制项目<br>
+                
+            欢迎你下单！本页面为静态页面。仅供价格查询，如需定制请返回QQ或微信联系我们的客服。</div>
         </div>
 
-        <!-- 皮肤定价卡片区域 -->
+        <!-- 皮肤定价卡片 -->
         <section class="price-wrap">
-            <!-- 基础简约皮肤 -->
             <div class="skin-card">
-                <h2>64像素皮肤定制</h2>
+                 <h2>64像素皮肤定制</h2>
                 <div class="price-num">¥45</div>
                 <div class="desc-item">单件64像素皮肤定制</div>
                 <div class="desc-item">二对一定制服务</div>
@@ -173,9 +310,8 @@
                 <div class="desc-item">可赠送基础渲染图</div>
                 <div class="desc-item">免费上传网易</div>
             </div>
-
-            <!-- 进阶动态皮肤 -->
             <div class="skin-card">
+                <h2>进阶动态皮肤</h2>
                 <h2>128像素皮肤定制</h2>
                 <div class="price-num">¥65</div>
                 <div class="desc-item">单件128像素皮肤定制</div>
@@ -184,10 +320,8 @@
                 <div class="desc-item">可赠送基础渲染图</div>
                 <div class="desc-item">免费上传网易</div>
             </div>
-
-            <!-- 限定典藏皮肤 -->
             <div class="skin-card">
-                <h2>64像素+128像素皮肤定制</h2>
+                  <h2>64像素+128像素皮肤定制</h2>
                 <div class="price-num">¥90</div>
                 <div class="desc-item">优惠方案，比单选便宜20！</div>
                  <div class="desc-item">二对一定制服务</div>
@@ -197,9 +331,9 @@
             </div>
         </section>
 
-        <!-- ====================== 预留文字扩展区2（后期可加增值服务、附加收费项） ====================== -->
+        <!-- 预留文字扩展区2 -->
         <div class="text-expand-block">
-            <h3>联系方式</h3>
+              <h3>联系方式</h3>
             <div class="expand-text-area">
                 QQ：2928901280
                 QQ：3661330376
@@ -209,15 +343,15 @@
             </div>
         </div>
 
-        <!-- ====================== 预留文字扩展区3（后期可加活动、优惠公告） ====================== -->
+        <!-- 预留文字扩展区3 -->
         <div class="text-expand-block">
-            <h3>活动优惠专区</h3>
+              <h3>活动优惠专区</h3>
             <div class="expand-text-area">
                 暂无优惠活动，请等待更新。
             </div>
         </div>
 
-        <!-- 底部备注说明预留区 -->
+        <!-- 底部备注 -->
         <div class="note-area">
             <h4>定制须知备注</h4>
             <p>1. 所有价格明码标价无隐藏消费；</p>
@@ -228,13 +362,29 @@
     </div>
 
     <script>
-        // 粒子画布初始化
+        // ========== 联系弹窗逻辑 ==========
+        const openBtn = document.getElementById('openContact');
+        const mask = document.getElementById('contactMask');
+        const closeBtn = document.getElementById('closeContact');
+        // 打开弹窗
+        openBtn.addEventListener('click', () => {
+            mask.classList.add('show');
+        });
+        // 关闭弹窗
+        closeBtn.addEventListener('click', () => {
+            mask.classList.remove('show');
+        });
+        // 点击遮罩空白处关闭
+        mask.addEventListener('click', (e) => {
+            if (e.target === mask) mask.classList.remove('show');
+        });
+
+        // ========== 粒子特效代码（完整保留增强滑动粒子） ==========
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let width, height;
         let particles = [];
 
-        // 窗口尺寸适配
         function resizeCanvas() {
             width = window.innerWidth;
             height = window.innerHeight;
@@ -244,24 +394,18 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas, { passive: true });
 
-        // 粒子类
         class Particle {
             constructor(x, y, type = "click") {
                 this.x = x;
                 this.y = y;
                 this.type = type;
-
                 if (type === "slide") {
-                    // 滑动粒子：大小层次更丰富
                     this.size = Math.random() * 2.8 + 0.3;
-                    // 滑动粒子速度更轻柔
                     this.speedX = Math.random() * 2.2 - 1.1;
                     this.speedY = Math.random() * 2.2 - 1.1;
-                    // 浅亮紫色
                     this.color = `hsl(${275 + Math.random() * 25}, 90%, 78%)`;
                     this.decay = 0.018;
                 } else {
-                    // 点击爆发粒子
                     this.size = Math.random() * 4.5 + 1;
                     this.speedX = Math.random() * 6 - 3;
                     this.speedY = Math.random() * 6 - 3;
@@ -286,7 +430,6 @@
             }
         }
 
-        // 批量生成滑动粒子（增强核心，一次5颗带偏移，轨迹浓密）
         function createSlideParticles(x, y) {
             for (let i = 0; i < 5; i++) {
                 const offsetX = (Math.random() - 0.5) * 12;
@@ -295,21 +438,16 @@
             }
         }
 
-        // 点击爆发粒子
         window.addEventListener('click', (e) => {
             for (let i = 0; i < 30; i++) {
                 particles.push(new Particle(e.clientX, e.clientY, "click"));
             }
         });
 
-        // 电脑端按住鼠标拖动生成滑动粒子
         window.addEventListener('mousemove', (e) => {
-            if (e.buttons === 1) {
-                createSlideParticles(e.clientX, e.clientY);
-            }
+            if (e.buttons === 1) createSlideParticles(e.clientX, e.clientY);
         });
 
-        // 移动端触屏滑动（passive:true不阻断滚动）
         let touchCache = {};
         window.addEventListener('touchstart', (e) => {
             const touch = e.touches[0];
@@ -322,19 +460,14 @@
             createSlideParticles(touch.clientX, touch.clientY);
         }, { passive: true });
 
-        // 动画循环
         function animate() {
-            // 关键修复：清空画布为完全透明，不会遮挡文字
             ctx.clearRect(0, 0, width, height);
-            // 叠加发光模式，实现柔和拖影，不产生深色遮罩
             ctx.globalCompositeOperation = "lighter";
-
             for (let i = particles.length - 1; i >= 0; i--) {
                 particles[i].update();
                 particles[i].draw();
                 if (particles[i].life <= 0) particles.splice(i, 1);
             }
-            // 恢复默认混合模式
             ctx.globalCompositeOperation = "source-over";
             requestAnimationFrame(animate);
         }
